@@ -1,7 +1,5 @@
 # aps-kiosk-faceid 😉
 
-Thank you https://github.com/serengil
-
 Raspberry pi4 os Debian GNU/Linux 12 (bookworm)
 
 Using picamera2 in virtual environments
@@ -14,3 +12,4 @@ pip install deepface
 pip install tf-keras
 
 ```
+Thank you https://github.com/serengil 🤗
