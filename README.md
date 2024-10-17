@@ -1,6 +1,4 @@
-# Hi there👋
-
-# aps-kiosk-faceid
+# aps-kiosk-faceid 😉
 
 Raspberry pi4 os Debian GNU/Linux 12 (bookworm)
 
