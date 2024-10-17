@@ -85,7 +85,7 @@ def analysis(
     num_frames_with_faces = 0
     tic = time.time()
 
-    cap = cv2.VideoCapture(source)  # webcam
+    # cap = cv2.VideoCapture(source)  # webcam
     while True:
         img = camera.capture_array()
 
