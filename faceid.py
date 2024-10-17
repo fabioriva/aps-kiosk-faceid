@@ -31,7 +31,6 @@ def analysis(
     detector_backend="opencv",
     distance_metric="cosine",
     enable_face_analysis=True,
-    source=0,
     time_threshold=5,
     frame_threshold=5,
     anti_spoofing: bool = False,
@@ -85,7 +84,6 @@ def analysis(
     num_frames_with_faces = 0
     tic = time.time()
 
-    # cap = cv2.VideoCapture(source)  # webcam
     while True:
         img = camera.capture_array()
 
@@ -161,7 +159,6 @@ def analysis(
         freezed_img = countdown_to_release(
             img=freezed_img, tic=tic, time_threshold=time_threshold)
 
-        # cv2.imshow("img", img if freezed_img is None else freezed_img)
         yield cv2.imencode('.jpg', img if freezed_img is None else freezed_img)[1].tobytes()
 
         if cv2.waitKey(1) & 0xFF == ord("q"):  # press q to quit
