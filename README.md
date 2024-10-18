@@ -10,6 +10,9 @@ pip install flask
 pip install opencv-python
 pip install deepface
 pip install tf-keras
+pip install gunicorn
+
+pm2 --name=faceid start "gunicorn app:app -b localhost:5000 --workers 1 --threads 4"
 
 ```
 Thank you https://github.com/serengil 🤗

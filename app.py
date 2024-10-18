@@ -10,6 +10,7 @@ app = Flask(__name__)
 def index():
     """Video streaming home page."""
     return render_template('faceid.html')
+    # return render_template('video.html', filename='test.mp4')
 
 
 def gen(camera):
@@ -28,7 +29,8 @@ def video_feed():
 
 @app.route("/video/<filename>")
 def serve_video(filename):
-    return send_from_directory('static', filename)
+    return send_from_directory('static/media', filename)
+    # return render_template('video.html', filename=filename)
 
 
 if __name__ == '__main__':

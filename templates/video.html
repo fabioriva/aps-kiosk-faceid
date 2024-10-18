@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Video streaming</title>
+  </head>
+  <body>
+    <video width="480" height="360" autoplay>
+      <source
+        src="{{ url_for('static', filename='media/' ~ filename) }}"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
+  </body>
+</html>
