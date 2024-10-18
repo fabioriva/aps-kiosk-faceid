@@ -28,7 +28,7 @@ def video_feed():
 
 @app.route("/video/<filename>")
 def serve_video(filename):
-    return send_from_directory('media', filename)
+    return send_from_directory('static', filename)
 
 
 if __name__ == '__main__':
