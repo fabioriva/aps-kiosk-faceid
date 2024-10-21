@@ -68,8 +68,8 @@ def analysis(
         None
     """
     # initialize models
-    build_demography_models(enable_face_analysis=enable_face_analysis)
-    build_facial_recognition_model(model_name=model_name)
+    # build_demography_models(enable_face_analysis=enable_face_analysis)
+    # build_facial_recognition_model(model_name=model_name)
     # call a dummy find function for db_path once to create embeddings before starting webcam
     _ = search_identity(
         detected_face=np.zeros([224, 224, 3]),

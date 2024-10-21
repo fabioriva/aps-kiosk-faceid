@@ -2,6 +2,7 @@ import os
 import re
 from flask import Flask, Response, render_template, send_from_directory
 from camera_pi2 import Camera
+from faceid import build_demography_models, build_facial_recognition_model
 
 app = Flask(__name__)
 
@@ -34,4 +35,7 @@ def serve_video(filename):
 
 
 if __name__ == '__main__':
+    # initialize models
+    build_demography_models(enable_face_analysis=False)
+    build_facial_recognition_model(model_name="VGG-Face")
     app.run(host='0.0.0.0', threaded=True)
