@@ -161,7 +161,7 @@ def analysis(
 
             r = requests.post(os.getenv('API_URL'), json={
                 "id": target_label.split("_")[1]})
-            logger.info("JSON: %s" % (r.text))
+            logger.info("response: %s" % (r.text))
 
         freezed_img = countdown_to_release(
             img=freezed_img, tic=tic, time_threshold=time_threshold)
@@ -244,7 +244,7 @@ def search_identity(
 
     candidate = df.iloc[0]
     target_path = candidate["identity"]
-    logger.info(f"Hello, {target_path}")
+    logger.info(f"Target path, {target_path}")
 
     # load found identity image - extracted if possible
     target_objs = DeepFace.extract_faces(
@@ -474,10 +474,14 @@ def perform_facial_recognition(
         if target_label is None:
             continue
 
+        name = " ".join(target_label.split(
+            "_")[2:-1]) if target_label else "Unknown"
+        logger.info(f"Hello, {name}")
+
         img = overlay_identified_face(
             img=img,
             target_img=target_img,
-            label=target_label,
+            label=name,
             x=x,
             y=y,
             w=w,
