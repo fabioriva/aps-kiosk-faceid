@@ -18,7 +18,7 @@ class Camera(BaseCamera):
             camera.start()
 
             # let camera warm up
-            time.sleep(1)
+            time.sleep(4)
 
             try:
                 while True:
