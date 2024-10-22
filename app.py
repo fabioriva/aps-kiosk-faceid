@@ -1,5 +1,3 @@
-import os
-import re
 from flask import Flask, Response, render_template, send_from_directory
 from camera_pi2 import Camera
 from faceid import build_demography_models, build_facial_recognition_model

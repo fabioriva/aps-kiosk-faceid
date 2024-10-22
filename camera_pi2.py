@@ -1,8 +1,6 @@
-import cv2
 import time
 from base_camera import BaseCamera
 from picamera2 import Picamera2, Preview
-# from deepface import DeepFace
 from faceid import analysis
 
 
