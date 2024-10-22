@@ -7,6 +7,7 @@ from typing import List, Tuple, Optional, Any
 import numpy as np
 import pandas as pd
 import cv2
+import requests
 
 # project dependencies
 from deepface import DeepFace
@@ -26,6 +27,7 @@ TEXT_COLOR = (255, 255, 255)
 
 
 def analysis(
+    camera: Any,
     db_path: str,
     model_name="VGG-Face",
     detector_backend="opencv",
@@ -34,7 +36,6 @@ def analysis(
     time_threshold=5,
     frame_threshold=5,
     anti_spoofing: bool = False,
-    camera: Any = None,
 ):
     """
     Run real time face recognition and facial attribute analysis
@@ -84,6 +85,8 @@ def analysis(
     num_frames_with_faces = 0
     tic = time.time()
 
+    target_label = ""
+
     while True:
         img = camera.capture_array()
 
@@ -132,7 +135,7 @@ def analysis(
                     detected_faces=detected_faces,
                 )
                 # facial recogntion analysis
-                img = perform_facial_recognition(
+                img, target_label = perform_facial_recognition(
                     img=img,
                     faces_coordinates=faces_coordinates,
                     detected_faces=detected_faces,
@@ -155,6 +158,10 @@ def analysis(
             # reset counter for freezing
             tic = time.time()
             logger.info("freeze released")
+
+            r = requests.post(os.getenv('API_URL'), json={
+                "id": target_label.split("_")[1]})
+            logger.info("JSON: %s" % (r.text))
 
         freezed_img = countdown_to_release(
             img=freezed_img, tic=tic, time_threshold=time_threshold)
@@ -435,7 +442,7 @@ def perform_facial_recognition(
     detector_backend: str,
     distance_metric: str,
     model_name: str,
-) -> np.ndarray:
+) -> Tuple[np.ndarray, str]:
     """
     Perform facial recognition
     Args:
@@ -477,7 +484,7 @@ def perform_facial_recognition(
             h=h,
         )
 
-    return img
+    return img, target_label
 
 
 def perform_demography_analysis(
