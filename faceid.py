@@ -18,9 +18,9 @@ logger = Logger()
 # dependency configuration
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
-
+IDENTIFIED_IMG_SIZE = 224
 # IDENTIFIED_IMG_SIZE = 112
-IDENTIFIED_IMG_SIZE = 56
+# IDENTIFIED_IMG_SIZE = 56
 TEXT_COLOR = (255, 255, 255)
 
 # pylint: disable=unused-variable
@@ -69,8 +69,8 @@ def analysis(
         None
     """
     # initialize models
-    # build_demography_models(enable_face_analysis=enable_face_analysis)
-    # build_facial_recognition_model(model_name=model_name)
+    build_demography_models(enable_face_analysis=enable_face_analysis)
+    build_facial_recognition_model(model_name=model_name)
     # call a dummy find function for db_path once to create embeddings before starting webcam
     _ = search_identity(
         detected_face=np.zeros([224, 224, 3]),
@@ -159,9 +159,10 @@ def analysis(
             tic = time.time()
             logger.info("freeze released")
 
-            r = requests.post(os.getenv('API_URL'), json={
-                "id": target_label.split("_")[1]})
-            logger.info("response: %s" % (r.text))
+            if target_label:
+                r = requests.post(os.getenv('API_URL'), json={
+                    "id": target_label.split("_")[1]})
+                logger.info("response: %s" % (r.text))
 
         freezed_img = countdown_to_release(
             img=freezed_img, tic=tic, time_threshold=time_threshold)

@@ -162,6 +162,8 @@ cython_debug/
 #.idea/
 
 # faceid db
+dataset/
 db/
+trainer/
 # media db
 media/

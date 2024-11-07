@@ -13,6 +13,7 @@ class CameraEvent(object):
     """An Event-like class that signals all active clients when a new frame is
     available.
     """
+
     def __init__(self):
         self.events = {}
 
@@ -56,8 +57,9 @@ class BaseCamera(object):
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
     event = CameraEvent()
+    mode = None
 
-    def __init__(self):
+    def __init__(self, mode=0):
         """Start the background camera thread if it isn't running yet."""
         if BaseCamera.thread is None:
             BaseCamera.last_access = time.time()
@@ -68,6 +70,9 @@ class BaseCamera(object):
 
             # wait until first frame is available
             BaseCamera.event.wait()
+
+            # set camera mode = capture | detection | recognition | training
+            BaseCamera.mode = mode
 
     def get_frame(self):
         """Return the current camera frame."""
@@ -95,8 +100,8 @@ class BaseCamera(object):
             time.sleep(0)
 
             # if there hasn't been any clients asking for frames in
-            # the last 10 seconds then stop the thread
-            if time.time() - BaseCamera.last_access > 60:
+            # the last x seconds then stop the thread
+            if time.time() - BaseCamera.last_access > 10:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
                 break

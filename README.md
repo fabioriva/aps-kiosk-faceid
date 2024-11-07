@@ -9,6 +9,7 @@ python3 -m venv --system-site-packages .venv
 pip install flask
 pip install python-dotenv
 pip install opencv-python
+pip install opencv-contrib-python
 pip install deepface
 pip install tf-keras
 pip install gunicorn
